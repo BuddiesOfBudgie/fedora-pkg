@@ -2,9 +2,6 @@
 %global gtk3_version 3.24
 %global vala_version 0.48
 
-# Seems to ship /usr/lib/.build-id* otherwise
-%define _build_id_links none
-
 Name:           budgie-desktop-view
 Version:        1.2
 Release:        1%{?dist}

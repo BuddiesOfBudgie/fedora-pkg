@@ -4,9 +4,6 @@
 %define polkit_version 0.105
 %define vala_version 0.52.5
 
-# Seems to ship /usr/lib/.build-id* otherwise
-%define _build_id_links none
-
 Name:           budgie-desktop
 Version:        10.6.1
 Release:        1%{?dist}
@@ -15,6 +12,10 @@ Summary:        A feature-rich, modern desktop designed to keep out the way of t
 License:        GPLv2 and LGPLv2
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        https://github.com/BuddiesOfBudgie/budgie-desktop/releases/download/v10.6.1/budgie-desktop-v10.6.1.tar.xz
+
+# Drop unnecessary Comment in daemon desktop that produces warning.
+# https://github.com/BuddiesOfBudgie/budgie-desktop/commit/3e2fd0dd6f8235716847d4b6c1f717719ab8632a
+Patch0: 0001-Drop-unnecessary-Comment-in-daemon.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -77,7 +78,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Documentation for budgie-desktop
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %meson
@@ -86,6 +87,9 @@ Documentation for budgie-desktop
 %install
 %meson_install
 %find_lang %{name}
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
 %doc README.md

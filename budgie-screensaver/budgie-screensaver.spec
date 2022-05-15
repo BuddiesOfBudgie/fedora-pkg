@@ -41,6 +41,9 @@ A fork of gnome-screensaver intended for use with Budgie Desktop.
 %meson_install
 %find_lang %{name}
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/budgie-screensaver.desktop
+
 %files -f %{name}.lang
 %doc README.md
 %license LICENSE

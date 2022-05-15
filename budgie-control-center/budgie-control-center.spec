@@ -57,6 +57,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt
 BuildRequires:  gcc
 BuildRequires:  gettext
+BuildRequires: libappstream-glib
 BuildRequires:  meson
 
 Requires: cheese-libs%{?_isa} >= %{cheese_version}
@@ -123,11 +124,15 @@ A fork of GNOME Control Center for the Budgie 10 Series.
 
 %install
 %meson_install
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/budgie/wm-properties
-rm -rf $RPM_BUILD_ROOT%{_datadir}/budgie/autostart
-rm -rf $RPM_BUILD_ROOT%{_datadir}/budgie/cursor-fonts
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/budgie-control-center
+mkdir -p %{buildroot}%{_datadir}/budgie/wm-properties
+rm -rf %{buildroot}%{_datadir}/budgie/autostart
+rm -rf %{buildroot}%{_datadir}/budgie/cursor-fonts
+chrpath --delete %{buildroot}%{_bindir}/budgie-control-center
 %find_lang %{name} --all-name --with-gnome
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/budgie-control-center.appdata.xml
 
 %files -f %{name}.lang
 %license LICENSE
