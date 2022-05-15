@@ -1,4 +1,4 @@
-results/*
+**/results*/*
 *.log
-*.rpm
+*x86_64.rpm
 *.tar*
