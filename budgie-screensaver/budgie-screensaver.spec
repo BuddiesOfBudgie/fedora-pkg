@@ -9,7 +9,7 @@ Summary:        A fork of gnome-screensaver intended for use with Budgie Desktop
 
 License:        GPLv2
 URL:            https://github.com/BuddiesOfBudgie/budgie-screensaver
-Source0:        https://github.com/BuddiesOfBudgie/budgie-screensaver/releases/download/v5.0.1/budgie-screensaver-v5.0.1.tar.xz
+Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 
 BuildRequires:  pkgconfig(dbus-glib-1) >= 0.3.0
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}

@@ -11,7 +11,7 @@ Summary:        A feature-rich, modern desktop designed to keep out the way of t
 
 License:        GPLv2 and LGPLv2
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
-Source0:        https://github.com/BuddiesOfBudgie/budgie-desktop/releases/download/v10.6.1/budgie-desktop-v10.6.1.tar.xz
+Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 
 # Drop unnecessary Comment in daemon desktop that produces warning.
 # https://github.com/BuddiesOfBudgie/budgie-desktop/commit/3e2fd0dd6f8235716847d4b6c1f717719ab8632a

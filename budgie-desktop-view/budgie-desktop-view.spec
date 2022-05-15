@@ -9,7 +9,7 @@ Summary:        Official Budgie desktop icons application / implementation
 
 License:        ASL 2.0
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop-view
-Source0:        https://github.com/BuddiesOfBudgie/budgie-desktop-view/releases/download/v1.2/budgie-desktop-view-v1.2.tar.xz
+Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_version}

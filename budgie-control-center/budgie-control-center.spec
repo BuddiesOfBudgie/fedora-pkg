@@ -14,7 +14,7 @@ Summary:        A fork of GNOME Control Center for the Budgie 10 Series
 
 License:        GPLv2+ and CC-BY-SA
 URL:            https://github.com/BuddiesOfBudgie/budgie-control-center
-Source0:        https://github.com/BuddiesOfBudgie/budgie-control-center/releases/download/v1.0.2/budgie-control-center-1.0.2.tar.xz
+Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(accountsservice)
 BuildRequires:  pkgconfig(cheese) >= %{cheese_version}
