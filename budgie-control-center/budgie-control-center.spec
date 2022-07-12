@@ -157,52 +157,50 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %files common -f %{name}.lang
-%{_datadir}/bash-completion/completions/%{name}
+%dir %{_datadir}/budgie
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/keybindings
+%dir %{_datadir}/%{name}/pixmaps
 %dir %{_datadir}/dbus-1
 %dir %{_datadir}/dbus-1/services
-%{_datadir}/dbus-1/services
-%{_datadir}/dbus-1/services/org.buddiesofbudgie.ControlCenter.service
 %dir %{_datadir}/glib-2.0
 %dir %{_datadir}/glib-2.0/schemas
-%{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.ControlCenter.gschema.xml
-%dir 
-%{_datadir}/%{name}
-%dir %{_datadir}/budgie
-%{_datadir}/budgie/wm-properties
-%dir %{_datadir}/pixmaps/budgie-faces
-%{_datadir}/pixmaps/budgie-faces
-%{_datadir}/pixmaps/budgie-faces/*.jpg
-%{_datadir}/pixmaps/budgie-logo.png
-%{_datadir}/%{name}/pixmaps/noise-texture-light.png
 %dir %{_datadir}/icons
-%{_datadir}/icons
 %dir %{_datadir}/icons/hicolor
-%{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/scalable
-%{_datadir}/icons/hicolor/scalable
 %dir %{_datadir}/icons/hicolor/scalable/apps
-%{_datadir}/icons/hicolor/scalable/apps
+%dir %{_datadir}/icons/hicolor/scalable/categories
+%dir %{_datadir}/icons/hicolor/scalable/emblems
+%dir %{_datadir}/icons/hicolor/scalable/status
+%dir %{_datadir}/icons/hicolor/symbolic
+%dir %{_datadir}/icons/hicolor/symbolic/apps
+%dir %{_datadir}/locale/mjw
+%dir %{_datadir}/locale/mjw/LC_MESSAGES
+%dir %{_datadir}/pixmaps
+%dir %{_datadir}/pixmaps/budgie-faces
+%dir %{_datadir}/pixmaps/budgie-faces/legacy
+%dir %{_datadir}/sounds/budgie
+%dir %{_datadir}/sounds/budgie/default
+%dir %{_datadir}/sounds/budgie/default/alerts
+%{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/dbus-1/services/org.buddiesofbudgie.ControlCenter.service
+%{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.ControlCenter.gschema.xml
+%{_datadir}/budgie/wm-properties
+%{_datadir}/pixmaps/budgie-faces/*.jpg
+%{_datadir}/pixmaps/budgie-faces/*.png
+%{_datadir}/pixmaps/budgie-faces/legacy/*.jpg
+%{_datadir}/pixmaps/budgie-faces/legacy/*.png
+%{_datadir}/pixmaps/budgie-logo.png
+%{_datadir}/%{name}/keybindings/*.xml
+%{_datadir}/%{name}/pixmaps/noise-texture-light.png
+%{_datadir}/icons/hicolor/scalable/*/budgie-*.svg
+%{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings-*.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.Devel.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.svg
-%dir %{_datadir}/icons/hicolor/symbolic/
-%{_datadir}/icons/hicolor/symbolic/
-%dir %{_datadir}/icons/hicolor/symbolic/apps
-%{_datadir}/icons/hicolor/symbolic/apps
 %{_datadir}/icons/hicolor/symbolic/apps/org.buddiesofbudgie.Settings-symbolic.svg
-%{_datadir}/locale/*/LC_MESSAGES/%{name}-2.0.mo
-%{_datadir}/locale/*/LC_MESSAGES/%{name}-2.0-timezones.mo
-%{_datadir}/locale/mjw
-%{_datadir}/locale/mjw/LC_MESSAGES
 %{_datadir}/man/man1/%{name}.1*
-%dir %{_datadir}/polkit-1
-%dir %{_datadir}/polkit-1/actions
 %{_datadir}/polkit-1/actions/org.buddiesofbudgie.controlcenter.*.policy
 %{_datadir}/polkit-1/rules.d/%{name}.rules
-%dir %{_datadir}/sounds/budgie
-%{_datadir}/sounds/budgie
-%dir %{_datadir}/sounds/budgie/default
-%{_datadir}/sounds/budgie/default
-%{_datadir}/sounds/budgie/default/alerts
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
