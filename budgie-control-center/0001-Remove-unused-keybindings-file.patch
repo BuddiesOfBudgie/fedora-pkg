@@ -1,0 +1,58 @@
+From 8cc3cf979fffa7c180c56e56576079abe344ce62 Mon Sep 17 00:00:00 2001
+From: Joshua Strobl <me@joshuastrobl.com>
+Date: Sat, 28 May 2022 19:57:10 +0300
+Subject: [PATCH 1/1] Remove unused keybindings file.
+
+---
+ panels/keyboard/budgie-keybindings.pc.in | 10 ----------
+ panels/keyboard/meson.build              | 17 -----------------
+ 2 files changed, 27 deletions(-)
+ delete mode 100644 panels/keyboard/budgie-keybindings.pc.in
+
+diff --git a/panels/keyboard/budgie-keybindings.pc.in b/panels/keyboard/budgie-keybindings.pc.in
+deleted file mode 100644
+index e099b4c72..000000000
+--- a/panels/keyboard/budgie-keybindings.pc.in
++++ /dev/null
+@@ -1,10 +0,0 @@
+-prefix=@prefix@
+-datarootdir=@datarootdir@
+-datadir=@datadir@
+-pkgdatadir=${datadir}/@PACKAGE@
+-keysdir=${pkgdatadir}/keybindings
+-
+-Name: gnome-keybindings
+-Description: Keybindings configuration for GNOME applications
+-Version: @VERSION@
+-
+diff --git a/panels/keyboard/meson.build b/panels/keyboard/meson.build
+index cc82aabe7..60f425c82 100644
+--- a/panels/keyboard/meson.build
++++ b/panels/keyboard/meson.build
+@@ -16,23 +16,6 @@ i18n.merge_file(
+   install_dir: control_center_desktopdir
+ )
+ 
+-pc_conf = configuration_data()
+-pc_conf.set('prefix', control_center_prefix)
+-pc_conf.set('datarootdir', control_center_datadir)
+-pc_conf.set('datadir', control_center_datadir)
+-pc_conf.set('PACKAGE', meson.project_name())
+-pc_conf.set('VERSION', meson.project_version())
+-
+-pc = 'budgie-keybindings.pc'
+-
+-configure_file(
+-  input: pc + '.in',
+-  output: pc,
+-  install: true,
+-  install_dir: join_paths(control_center_datadir, 'pkgconfig'),
+-  configuration: pc_conf
+-)
+-
+ xml_files = [
+   '00-multimedia.xml',
+   '01-input-sources.xml',
+-- 
+2.35.1
+
