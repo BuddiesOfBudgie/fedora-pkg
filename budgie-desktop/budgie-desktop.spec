@@ -1,21 +1,19 @@
-%define glib2_version 2.64
-%define gnome_stack 42.0
-%define gtk3_version 3.24
-%define polkit_version 0.105
-%define vala_version 0.52.5
+%global glib2_version 2.64
+%global gnome_stack 42.0
+%global gtk3_version 3.24
+%global polkit_version 0.105
+%global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.6.1
+Version:        10.6.2
 Release:        1%{?dist}
-Summary:        A feature-rich, modern desktop designed to keep out the way of the user
+Summary:     A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
-URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
-Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
-
-# Drop unnecessary Comment in daemon desktop that produces warning.
-# https://github.com/BuddiesOfBudgie/budgie-desktop/commit/3e2fd0dd6f8235716847d4b6c1f717719ab8632a
-Patch0: 0001-Drop-unnecessary-Comment-in-daemon.patch
+URL:               https://github.com/BuddiesOfBudgie/budgie-desktop
+Source0:       %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
+Source1:       %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
+Source2:       https://joshuastrobl.com/pubkey.gpg
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -39,8 +37,10 @@ BuildRequires:  pkgconfig(vapigen) >= %{vala_version}
 BuildRequires:  budgie-desktop-view
 BuildRequires:  budgie-screensaver
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gnome-menus-devel >= 3.36
+BuildRequires:  gnupg2
 BuildRequires:  gsettings-desktop-schemas >= %{gnome_stack}
 BuildRequires:  gtk-doc >= 1.33.0
 BuildRequires:  intltool
@@ -52,8 +52,11 @@ Requires:       budgie-desktop-view
 Requires:       budgie-screensaver
 Requires:       gnome-bluetooth3.34-libs
 Requires:       gnome-session
-Requires:       lightdm
-Requires:       slick-greeter
+Requires:       gnome-settings-daemon
+Requires:       gsettings-desktop-schemas 
+Requires:       network-manager-applet
+Requires:       xdotool
+Suggests:       budgie-control-center
 Suggests:       materia-gtk-theme
 Suggests:       papirus-icon-theme
 
@@ -72,13 +75,15 @@ Header files, libraries, and other files for developing Budgie Desktop.
 
 %package docs
 Summary: Documentation for budgie-desktop
+Requires: gtk-doc
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description docs
 Documentation for budgie-desktop
 
 %prep
-%autosetup -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
 
 %build
 %meson
@@ -94,31 +99,64 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %files -f %{name}.lang
 %doc README.md
 %license LICENSE
-%{_bindir}/budgie*
-%{_datadir}/applications/budgie*
+%dir %{_datadir}/backgrounds/budgie
+%dir %{_datadir}/budgie
+%dir %{_datadir}/gir-1.0
+%dir %{_datadir}/icons
+%dir %{_datadir}/icons/hicolor
+%dir %{_datadir}/icons/hicolor/scalable
+%dir %{_datadir}/icons/hicolor/scalable/actions
+%dir %{_datadir}/icons/hicolor/scalable/apps
+%dir %{_datadir}/icons/hicolor/scalable/status
+%dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/plugins/
+%dir %{_libdir}/%{name}/plugins/*
+%{_bindir}/budgie-*
+%{_datadir}/applications/budgie-*
 %{_datadir}/backgrounds/budgie/default.jpg
 %{_datadir}/budgie/budgie-version.xml
 %{_datadir}/gir-1.0/Budgie-1.0.gir
-%{_datadir}/glib-2.0/schemas/*.gschema*
-%{_datadir}/gnome-session/sessions/budgie-desktop.session
-%{_datadir}/icons/*
-%{_datadir}/xsessions/budgie-desktop.desktop
-%{_libdir}/budgie-desktop/libgvc.so
-%{_libdir}/budgie-desktop/plugins/*
-%{_libdir}/lib*.so*
-%{_mandir}/man1/budgie*.1*
+%{_datadir}/glib-2.0/schemas/20_solus-project.budgie.wm.gschema.override
+%{_datadir}/glib-2.0/schemas/com.solus-project.*.gschema.xml
+%{_datadir}/gnome-session/sessions/%{name}.session
+%{_datadir}/icons/hicolor/scalable/actions/*.svg
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
+%{_datadir}/icons/hicolor/scalable/status/*.svg
+%{_datadir}/xsessions/%{name}.desktop
+%{_libdir}/%{name}/libgvc.so
+%{_libdir}/%{name}/plugins/*/*.plugin
+%{_libdir}/%{name}/plugins/*/*.so*
+%{_libdir}/libbudgie-plugin.so.0
+%{_libdir}/libbudgie-plugin.so.0.0.0
+%{_libdir}/libbudgie-private.so.0
+%{_libdir}/libbudgie-private.so.0.0.0
+%{_libdir}/libbudgietheme.so.0
+%{_libdir}/libbudgietheme.so.0.0.0
+%{_libdir}/libraven.so.0
+%{_libdir}/libraven.so.0.0.0
+%{_mandir}/man1/budgie-*.1*
 %{_sysconfdir}/xdg/autostart/*.desktop
 
 %files devel
-%{_datadir}/vala
-%{_includedir}/*
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
+%dir %{_includedir}/%{name}
+%{_datadir}/vala/vapi/budgie-1.0.deps
+%{_datadir}/vala/vapi/budgie-1.0.vapi
+%{_includedir}/%{name}/*.h
 %{_libdir}/girepository-1.0/Budgie-1.0.typelib
-%{_libdir}/lib*.so
-%{_libdir}/pkgconfig/*
+%{_libdir}/libbudgie-plugin.so
+%{_libdir}/libbudgie-private.so
+%{_libdir}/libbudgietheme.so
+%{_libdir}/libraven.so
+%{_libdir}/pkgconfig/budgie-1.0.pc
+%{_libdir}/pkgconfig/budgie-theme-1.0.pc
 
 %files docs
-%{_datadir}/gtk-doc
+%dir %{_datadir}/gtk-doc/html/
+%dir %{_datadir}/gtk-doc/html/%{name}
+%{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
-* Sun May 15 2022 Joshua Strobl <me@joshuastrobl.com> - 10.6.1-1
+* Thu Jul 14 2022 Joshua Strobl <me@joshuastrobl.com> - 10.6.2-1
 - Initial inclusion of Budgie Desktop

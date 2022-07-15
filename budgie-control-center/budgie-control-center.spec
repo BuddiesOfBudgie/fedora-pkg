@@ -24,7 +24,6 @@ BuildRequires:  pkgconfig(cheese) >= %{cheese_version}
 BuildRequires:  pkgconfig(colord-gtk)
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:  pkgconfig(gnome-bluetooth-1.0) >= 3.34.0
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
@@ -45,7 +44,6 @@ BuildRequires:  pkgconfig(libpulse-mainloop-glib)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(libwacom)
 BuildRequires:  pkgconfig(malcontent-0)
 BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(polkit-gobject-1)
@@ -62,16 +60,22 @@ BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires: libappstream-glib
 BuildRequires:  meson
+%ifnarch s390 s390x
+BuildRequires:  pkgconfig(gnome-bluetooth-1.0) >= 3.34.0
+BuildRequires:  pkgconfig(libwacom)
+%endif
 
 Requires: cheese-libs%{?_isa} >= %{cheese_version}
 Requires: glib2%{?_isa} >= %{glib2_version}
-Requires: gnome-bluetooth%{?_isa}
 Requires: gnome-desktop3%{?_isa} >= %{gnome_stack}
 Requires: gnome-online-accounts%{?_isa} >= %{gnome_online_accounts_version}
 Requires: gnome-settings-daemon%{?_isa} >= %{gnome_stack}
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gnome_stack}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: upower%{?_isa} >= %{upower_version}
+%ifnarch s390 s390x
+Requires: gnome-bluetooth%{?_isa}
+%endif
 
 # Need common
 Requires: %{name}-common = %{version}-%{release}
@@ -154,6 +158,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_libexecdir}/budgie-cc-remote-login-helper
 %{_libexecdir}/%{name}-print-renderer
 %{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings-*.svg
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %files common -f %{name}.lang
@@ -194,7 +199,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/%{name}/keybindings/*.xml
 %{_datadir}/%{name}/pixmaps/noise-texture-light.png
 %{_datadir}/icons/hicolor/scalable/*/budgie-*.svg
-%{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings-*.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.Devel.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.buddiesofbudgie.Settings-symbolic.svg
