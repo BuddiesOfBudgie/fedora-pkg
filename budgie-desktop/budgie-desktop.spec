@@ -67,6 +67,7 @@ Requires: gtk3%{?_isa} >= %{gtk3_version}
 A feature-rich, modern desktop designed to keep out the way of the user.
 
 %package devel
+License:        GPLv2 and LGPLv2
 Summary: Development package for budgie-desktop
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
@@ -74,9 +75,11 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Header files, libraries, and other files for developing Budgie Desktop.
 
 %package docs
+License:        GPLv2 and LGPLv2
 Summary: Documentation for budgie-desktop
+BuildArch: noarch
 Requires: gtk-doc
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 
 %description docs
 Documentation for budgie-desktop
